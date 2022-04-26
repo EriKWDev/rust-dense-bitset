@@ -1,4 +1,4 @@
-use crate::bitset::BitSet;
+use crate::bitset::{BitSet, BitsetOps};
 
 use std::fmt;
 use std::hash::{Hash, Hasher};
@@ -367,6 +367,13 @@ impl BitSet for DenseBitSet {
     /// ```
     fn to_string(self) -> String {
         format!("{:064b}", self.state)
+    }
+}
+
+impl BitsetOps<DenseBitSet> for DenseBitSet {
+    #[inline]
+    fn is_subset_of(&self, other: &DenseBitSet) -> bool {
+        (other.state & self.state) == self.state
     }
 }
 

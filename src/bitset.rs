@@ -15,3 +15,8 @@ pub trait BitSet {
     /// Produces a string representation of the bitset (little endian), aligned with 64 bits and with leading zeroes
     fn to_string(self) -> String;
 }
+
+/// Trait to define operations between bitsets such as is_subset_of, is_superset_of and more
+pub trait BitsetOps<O: BitSet> {
+    fn is_subset_of(&self, other: &O) -> bool;
+}
