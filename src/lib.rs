@@ -6,11 +6,13 @@ mod u64impl;
 mod vec64impl;
 
 pub use crate::bitset::BitSet;
+pub use crate::bitset::BitsetOps;
 pub use crate::u64impl::DenseBitSet;
 pub use crate::vec64impl::DenseBitSetExtended;
 
 #[cfg(test)]
 mod tests {
+
     use super::*;
 
     // Tests for data initialization methods
@@ -765,5 +767,14 @@ mod tests {
         bs = bs.rotr(17) | (bs2 << 43);
         bs.set_bit(123, true);
         println!("{}", bs.subset(3, 64).to_string());
+    }
+
+    #[test]
+    fn test_is_subset_of_dbs() {
+        let bs1 = DenseBitSet::from_integer(1 << 1);
+        let bs2 = DenseBitSet::from_integer(1 << 1 | 1 << 2);
+
+        assert!(bs1.is_subset_of(&bs2));
+        assert!(!bs2.is_subset_of(&bs1));
     }
 }
